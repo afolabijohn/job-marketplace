@@ -135,17 +135,3 @@ Dashboard helpers in `src/components/dashboard/`:
 ## Data & Mocking
 - `Jobs.js` and `Dashboard.js` currently use mock data to display lists, stats, and recommendations. Replace these with API calls when your backend is ready.
 
-## Troubleshooting
-- "Module not found: Can't resolve '@/…'": switch to relative imports (e.g., `../components/ui/button`).
-- "differs only in casing": ensure import paths exactly match directory casing (`Pages/` vs `pages/`).
-- "import/export may appear only with sourceType: module": remove `"type": "commonjs"` from `package.json` if present.
-- Missing packages: run `npm install` and ensure libraries like `framer-motion`, `lucide-react`, `date-fns` are installed.
-
-## Contributing
-1. Create a feature branch: `git checkout -b feat/your-feature`
-2. Commit changes: `git commit -m "feat: add your feature"`
-3. Push branch: `git push origin feat/your-feature`
-4. Open a Pull Request
-
-## License
-This project is open-source. Choose and update a license if needed (e.g., MIT) in `LICENSE`.
