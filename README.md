@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# Job Marketplace
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React application for exploring jobs, tracking applications, and managing a simple candidate profile. Built with Create React App, React Router, framer-motion animations, and a small set of reusable UI components.
 
-## Available Scripts
+## Table of Contents
+- [Demo](#demo)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Routes](#routes)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Available Scripts](#available-scripts)
+- [Development Notes](#development-notes)
+- [UI Components](#ui-components)
+- [Data & Mocking](#data--mocking)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
-In the project directory, you can run:
+## Demo
+- Local development: `http://localhost:3000`
 
-### `npm start`
+## Features
+- Routing with React Router
+- Pages: Home, Jobs (with filters and search), Dashboard, Login, Register, Profile
+- Jobs filtering UI with basic inputs, select, accordion controls
+- Reusable UI components (Button, Card, Input, Badge, etc.)
+- Iconography via `lucide-react`
+- Animations via `framer-motion`
+- Mock data baked in for Jobs and Dashboard to run without a backend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
+- React 19
+- Create React App (react-scripts)
+- React Router
+- framer-motion
+- lucide-react
+- date-fns (formatting utilities where needed)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Structure
+```
+job-marketplace/
+├── public/
+├── src/
+│   ├── App.css
+│   ├── App.js
+│   ├── index.css
+│   ├── index.js
+│   ├── logo.svg
+│   ├── utils/
+│   │   └── index.js                 # helpers (e.g., createPageUrl)
+│   ├── Pages/                       # top-level pages
+│   │   ├── Home.js
+│   │   ├── Jobs.js                  # uses mock data; search + filters
+│   │   ├── Dashboard.js             # uses mock data; shows stats & recs
+│   │   ├── Login.js
+│   │   ├── Register.js
+│   │   └── Profile.js
+│   ├── Jobs/                        # jobs UI modules
+│   │   ├── Jobscard.js              # job card component
+│   │   └── JobsFilter.js            # filters panel
+│   └── components/
+│       ├── dashboard/
+│       │   ├── ApplicationTracker.js
+│       │   ├── CareerProgress.js
+│       │   ├── ProfilePrompt.js
+│       │   └── StatCard.js
+│       └── ui/                      # small, reusable UI primitives
+│           ├── accordion.jsx
+│           ├── badge.jsx
+│           ├── button.jsx
+│           ├── card.jsx
+│           ├── input.jsx
+│           ├── label.jsx
+│           ├── progress.jsx
+│           ├── select.jsx
+│           ├── tabs.jsx
+│           └── textarea.jsx
+├── package.json
+└── README.md
+```
 
-### `npm test`
+## Routes
+Defined in `src/App.js`:
+- `/` → `Home`
+- `/login` → `Login`
+- `/register` → `Register`
+- `/dashboard` → `Dashboard`
+- `/job/:id` → currently wired to `JobsFilter` (can be replaced by a dedicated JobDetail page)
+- `/apply/:id` → currently wired to `Jobscard` (can be replaced by a dedicated JobApplication page)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can easily replace those two with more specific pages once implemented.
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
+- Node.js 18+ recommended
+- npm 8+ (or yarn/pnpm if preferred)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
+```bash
+# From the project root
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Available Scripts
+- `npm start` — Runs the app in development mode at `http://localhost:3000`
+- `npm run build` — Builds the app for production into the `build` folder
+- `npm test` — Runs tests (if/when added)
 
-### `npm run eject`
+## Development Notes
+- This project uses standard relative imports. There is no `@/` path alias configured. If you see `@/` anywhere, change it to the correct relative path (e.g., `../components/ui/button`).
+- The filesystem is case-sensitive on many environments. Keep directory names consistent, e.g., `Pages/` vs `pages/`.
+- Components are exported either as `default` or named exports depending on file—match imports accordingly.
+- Some UI components are intentionally lightweight and focus on classNames for styling (e.g., `Select`, `Tabs`, `Accordion`) to keep the app backend-agnostic and framework-neutral.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## UI Components
+Reusable primitives located in `src/components/ui/`:
+- `button.jsx`: Standard Button with variants (`default`, `outline`, `secondary`, `ghost`, `link`) and sizes
+- `input.jsx`: Styled input
+- `textarea.jsx`: Styled textarea
+- `card.jsx`: Card, CardHeader, CardTitle, CardContent
+- `badge.jsx`: Tag-like status indicators
+- `label.jsx`: Form labels
+- `select.jsx`: Simple select set (Select, SelectItem, etc.)
+- `accordion.jsx`: Basic accordion set
+- `tabs.jsx`: Simple tabs implementation
+- `progress.jsx`: Progress bar
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Dashboard helpers in `src/components/dashboard/`:
+- `StatCard.js`, `ApplicationTracker.js`, `RecommendedJobs.js`, `CareerProgress.js`, `ProfilePrompt.js`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Data & Mocking
+- `Jobs.js` and `Dashboard.js` currently use mock data to display lists, stats, and recommendations. Replace these with API calls when your backend is ready.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Troubleshooting
+- "Module not found: Can't resolve '@/…'": switch to relative imports (e.g., `../components/ui/button`).
+- "differs only in casing": ensure import paths exactly match directory casing (`Pages/` vs `pages/`).
+- "import/export may appear only with sourceType: module": remove `"type": "commonjs"` from `package.json` if present.
+- Missing packages: run `npm install` and ensure libraries like `framer-motion`, `lucide-react`, `date-fns` are installed.
 
-## Learn More
+## Contributing
+1. Create a feature branch: `git checkout -b feat/your-feature`
+2. Commit changes: `git commit -m "feat: add your feature"`
+3. Push branch: `git push origin feat/your-feature`
+4. Open a Pull Request
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+This project is open-source. Choose and update a license if needed (e.g., MIT) in `LICENSE`.
