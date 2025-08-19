@@ -1,6 +1,5 @@
-.App {
-  text-align: center;
-}
+/* Optional small overrides; most styling comes from Tailwind utilities */
+.App { text-align: center; }
 
 .App-logo {
   height: 40vmin;
@@ -14,7 +13,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #0f172a; /* slate-900 */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
